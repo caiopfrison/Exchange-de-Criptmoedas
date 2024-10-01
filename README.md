@@ -1,6 +1,7 @@
 # Exchange-de-Criptmoedas
 Uma exchange de criptomoedas é um ambiente online onde os usuários podem realizar a compra, venda ou troca de criptomoedas, seja por outras moedas digitais ou por reais.
 Seu funcionamento é comparável ao de uma bolsa de valores, porém voltado exclusivamente para ativos digitais.
+
 O objetivo é fornecer uma plataforma segura e eficiente para facilitar a compra, venda e troca de criptomoedas.
 
 Para operar na plataforma, você deve criar um usuário caso não tenha um cadastro. Para realizar o cadastro você precisa digitar seu CPF e criar uma senha e então já estará pronto para operar na plataforma.
