@@ -38,3 +38,60 @@ int main() {
             }
         }
     }
+
+    int opcao;
+    do {
+        printf("\nMenu Principal\n");
+        printf("1. Consultar Saldo\n");
+        printf("2. Consultar Extrato\n");
+        printf("3. Depositar R$\n");
+        printf("4. Sacar R$\n");
+        printf("5. Comprar Criptomoeda\n");
+        printf("6. Vender Criptomoeda\n");
+        printf("7. Atualizar Cotações\n");
+        printf("0. Sair\n");
+        printf("Escolha uma opção: ");
+        scanf("%d", &opcao);
+
+        switch(opcao) {
+            case 1:
+                consultarSaldo(&usuarios[userIndex]);
+                break;
+            case 2:
+                consultarExtrato(&usuarios[userIndex]);
+                break;
+            case 3:
+                depositarBRL(&usuarios[userIndex]);
+                salvarUsuarios(usuarios, qtdUsuarios);
+                break;
+            case 4:
+                sacarBRL(&usuarios[userIndex]);
+                salvarUsuarios(usuarios, qtdUsuarios);
+                break;
+            case 5:
+                comprarCriptomoeda(&usuarios[userIndex], &cotacoes);
+                salvarUsuarios(usuarios, qtdUsuarios);
+                break;
+            case 6:
+                venderCriptomoeda(&usuarios[userIndex], &cotacoes);
+                salvarUsuarios(usuarios, qtdUsuarios);
+                break;
+            case 7:
+                atualizarCotacoes(&cotacoes);
+                break;
+            case 8: 
+                cadastrarUsuario(usuarios, &qtdUsuarios);
+                break;
+            case 0:
+                printf("Sessão finalizada.\n");
+                break;
+            default:
+                printf("Opção inválida.\n");
+        }
+
+    } while(opcao != 0);
+
+    // Salva os dados antes de finalizar o programa
+    salvarUsuarios(usuarios, qtdUsuarios);
+    return 0;
+}
