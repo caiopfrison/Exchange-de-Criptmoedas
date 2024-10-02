@@ -451,3 +451,20 @@ void venderCriptomoeda(Usuario *usuario, Cotacoes *cotacoes) {
   printf("Valor recebido: %.2lf BRL\n", valorComTaxa);
   printf("Taxa cobrada: %.2lf BRL\n", valor * taxa);
 }
+
+// Atualiza as cotações das criptomoedas
+void atualizarCotacoes(Cotacoes *cotacoes) {
+  srand(time(NULL));
+  double varBit = ((rand() % 11) - 5) / 100.0; // -5% a +5%
+  double varEth = ((rand() % 11) - 5) / 100.0;
+  double varXrp = ((rand() % 11) - 5) / 100.0;
+
+  cotacoes->bitcoin += cotacoes->bitcoin * varBit;
+  cotacoes->ethereum += cotacoes->ethereum * varEth;
+  cotacoes->ripple += cotacoes->ripple * varXrp;
+
+  printf("\nCotações Atualizadas\n");
+  printf("Bitcoin: %.2lf BRL\n", cotacoes->bitcoin);
+  printf("Ethereum: %.2lf BRL\n", cotacoes->ethereum);
+  printf("Ripple: %.2lf BRL\n", cotacoes->ripple);
+}
