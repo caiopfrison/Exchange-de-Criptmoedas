@@ -395,3 +395,37 @@ void venderCriptomoeda(Usuario *usuario, Cotacoes *cotacoes) {
     printf("Quantidade inválida.\n");
     return;
   }
+  // Verifica saldo da criptomoeda
+  switch (moeda) {
+  case BITCOIN:
+    if (usuario->saldoBitcoin < quantidade) {
+      printf("Saldo insuficiente de Bitcoin.\n");
+      return;
+    }
+    break;
+  case ETHEREUM:
+    if (usuario->saldoEthereum < quantidade) {
+      printf("Saldo insuficiente de Ethereum.\n");
+      return;
+    }
+    break;
+  case RIPPLE:
+    if (usuario->saldoRipple < quantidade) {
+      printf("Saldo insuficiente de Ripple.\n");
+      return;
+    }
+    break;
+  default:
+    break;
+  }
+
+  printf("Confirme sua senha: ");
+  scanf("%s", senha);
+  if (strcmp(usuario->senha, senha) != 0) {
+    printf("Senha incorreta.\n");
+    return;
+  }
+
+  double valor = quantidade * precoAtual;
+  double valorComTaxa = valor * (1 - taxa);
+  
