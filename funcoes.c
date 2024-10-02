@@ -63,3 +63,11 @@ void inicializarCotacoes(Cotacoes *cotacoes) {
   cotacoes->ethereum = 4000.0; // Ethereum inicial
   cotacoes->ripple = 1.0;      // Ripple inicial
 }
+
+// Função para obter data
+void obterDataAtual(char *buffer) {
+  time_t t = time(NULL);
+  struct tm tm = *localtime(&t);
+  sprintf(buffer, "%02d/%02d/%04d", tm.tm_mday, tm.tm_mon + 1,
+          tm.tm_year + 1900);
+}
