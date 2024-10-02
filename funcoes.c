@@ -226,3 +226,28 @@ void depositarBRL(Usuario *usuario) {
                      NONE);
   printf("Depósito realizado com sucesso!\n");
 }
+// Função para sacar em reais
+void sacarBRL(Usuario *usuario) {
+  double valor;
+  char senha[SENHA_SIZE];
+  printf("\nSacar Reais\n");
+  printf("Valor a sacar: ");
+  scanf("%lf", &valor);
+  if (valor <= 0) {
+    printf("Valor inválido.\n");
+    return;
+  }
+  if (usuario->saldoBRL < valor) {
+    printf("Saldo insuficiente.\n");
+    return;
+  }
+  printf("Confirme sua senha: ");
+  scanf("%s", senha);
+  if (strcmp(usuario->senha, senha) != 0) {
+    printf("Senha incorreta.\n");
+    return;
+  }
+  usuario->saldoBRL -= valor;
+  registrarTransacao(usuario, VENDA, valor, 0.0, NONE);
+  printf("Realizado com sucesso!\n");
+}
