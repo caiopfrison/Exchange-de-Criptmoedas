@@ -266,3 +266,16 @@ double taxaCompra(int moeda) {
     return 0.0;
   }
 }
+// Função para obter a taxa de venda
+double taxaVenda(int moeda) {
+  switch (moeda) {
+  case BITCOIN:
+    return 0.03;
+  case ETHEREUM:
+    return 0.02;
+  case RIPPLE:
+    return 0.01;
+  default:
+    return 0.0;
+  }
+}
