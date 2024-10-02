@@ -97,3 +97,13 @@ void salvarUsuarios(Usuario usuarios[], int qtd) {
   fwrite(usuarios, sizeof(Usuario), qtd, file);
   fclose(file);
 }
+
+// Função para encontrar o índice do usuário pelo CPF
+int encontrarUsuario(Usuario usuarios[], int qtd, char *cpf) {
+  for (int i = 0; i < qtd; i++) {
+    if (strcmp(usuarios[i].cpf, cpf) == 0) {
+      return i;
+    }
+  }
+  return -1;
+}
