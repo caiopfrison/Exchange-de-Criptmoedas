@@ -56,3 +56,10 @@ int cadastrarUsuario(Usuario usuarios[], int *qtdUsuarios) {
     printf("CPF: %s\n", novoUsuario.cpf);
     return 0;
 }
+
+// Inicializa as cotações com os valores padrão
+void inicializarCotacoes(Cotacoes *cotacoes) {
+  cotacoes->bitcoin = 50000.0; // Bitcoin inicial
+  cotacoes->ethereum = 4000.0; // Ethereum inicial
+  cotacoes->ripple = 1.0;      // Ripple inicial
+}
