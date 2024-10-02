@@ -44,3 +44,8 @@ int cadastrarUsuario(Usuario usuarios[], int *qtdUsuarios) {
     novoUsuario.saldoEthereum = 0.0;
     novoUsuario.saldoRipple = 0.0;
     novoUsuario.qtdTransacoes = 0;
+
+    // Adicionar o novo usuário ao array
+    usuarios[*qtdUsuarios] = novoUsuario;
+    (*qtdUsuarios)++;
+    
