@@ -279,3 +279,192 @@ double taxaVenda(int moeda) {
     return 0.0;
   }
 }
+// Função para comprar criptomoeda
+void comprarCriptomoeda(Usuario *usuario, Cotacoes *cotacoes) {
+  int escolha;
+  double valor;
+  char senha[SENHA_SIZE];
+  printf("\nComprar Criptomoeda\n");
+  printf("Selecione a moeda:\n1. Bitcoin\n2. Ethereum\n3. Ripple\nEscolha: ");
+  scanf("%d", &escolha);
+  Criptomoeda moeda;
+  double taxa;
+  double precoAtual;
+
+  switch (escolha) {
+  case 1:
+    moeda = BITCOIN;
+    precoAtual = cotacoes->bitcoin;
+    taxa = taxaCompra(moeda);
+    break;
+  case 2:
+    moeda = ETHEREUM;
+    precoAtual = cotacoes->ethereum;
+    taxa = taxaCompra(moeda);
+    break;
+  case 3:
+    moeda = RIPPLE;
+    precoAtual = cotacoes->ripple;
+    taxa = taxaCompra(moeda);
+    break;
+  default:
+    printf("Opção inválida.\n");
+    return;
+  }
+
+  printf("Valor em BRL para compra: ");
+  scanf("%lf", &valor);
+  if (valor <= 0) {
+    printf("Valor inválido.\n");
+    return;
+  }
+  printf("Confirme sua senha: ");
+  scanf("%s", senha);
+  if (strcmp(usuario->senha, senha) != 0) {
+    printf("Senha incorreta.\n");
+    return;
+  }
+
+  double valorComTaxa = valor * (1 + taxa);
+  if (usuario->saldoBRL < valorComTaxa) {
+    printf("Saldo insuficiente.\n");
+    return;
+  }
+
+  double quantidade = valor / precoAtual;
+  usuario->saldoBRL -= valorComTaxa;
+
+  switch (moeda) {
+  case BITCOIN:
+    usuario->saldoBitcoin += quantidade;
+    break;
+  case ETHEREUM:
+    usuario->saldoEthereum += quantidade;
+    break;
+  case RIPPLE:
+    usuario->saldoRipple += quantidade;
+    break;
+  default:
+    break;
+  }
+
+  registrarTransacao(usuario, COMPRA, valor, valor * taxa, moeda);
+  printf("Compra realizada!\n");
+  printf("Quantidade comprada: %.6lf %s\n", quantidade,
+         moeda == BITCOIN ? "Bitcoin"
+                          : (moeda == ETHEREUM ? "Ethereum" : "Ripple"));
+  printf("Taxa cobrada: %.2lf BRL\n", valor * taxa);
+}
+
+// Função para vender criptomoeda
+void venderCriptomoeda(Usuario *usuario, Cotacoes *cotacoes) {
+  int escolha;
+  double quantidade;
+  char senha[SENHA_SIZE];
+  printf("\nVender Criptomoeda\n");
+  printf("Selecione a moeda:\n1. Bitcoin\n2. Ethereum\n3. Ripple\nEscolha: ");
+  scanf("%d", &escolha);
+  Criptomoeda moeda;
+  double taxa;
+  double precoAtual;
+
+  switch (escolha) {
+  case 1:
+    moeda = BITCOIN;
+    precoAtual = cotacoes->bitcoin;
+    taxa = taxaVenda(moeda);
+    break;
+  case 2:
+    moeda = ETHEREUM;
+    precoAtual = cotacoes->ethereum;
+    taxa = taxaVenda(moeda);
+    break;
+  case 3:
+    moeda = RIPPLE;
+    precoAtual = cotacoes->ripple;
+    taxa = taxaVenda(moeda);
+    break;
+  default:
+    printf("Opção inválida.\n");
+    return;
+  }
+
+  printf("Quantidade a vender: ");
+  scanf("%lf", &quantidade);
+  if (quantidade <= 0) {
+    printf("Quantidade inválida.\n");
+    return;
+  }
+  // Verifica saldo da criptomoeda
+  switch (moeda) {
+  case BITCOIN:
+    if (usuario->saldoBitcoin < quantidade) {
+      printf("Saldo insuficiente de Bitcoin.\n");
+      return;
+    }
+    break;
+  case ETHEREUM:
+    if (usuario->saldoEthereum < quantidade) {
+      printf("Saldo insuficiente de Ethereum.\n");
+      return;
+    }
+    break;
+  case RIPPLE:
+    if (usuario->saldoRipple < quantidade) {
+      printf("Saldo insuficiente de Ripple.\n");
+      return;
+    }
+    break;
+  default:
+    break;
+  }
+
+  printf("Confirme sua senha: ");
+  scanf("%s", senha);
+  if (strcmp(usuario->senha, senha) != 0) {
+    printf("Senha incorreta.\n");
+    return;
+  }
+
+  double valor = quantidade * precoAtual;
+  double valorComTaxa = valor * (1 - taxa);
+
+  // Atualiza o saldo
+  switch (moeda) {
+  case BITCOIN:
+    usuario->saldoBitcoin -= quantidade;
+    break;
+  case ETHEREUM:
+    usuario->saldoEthereum -= quantidade;
+    break;
+  case RIPPLE:
+    usuario->saldoRipple -= quantidade;
+    break;
+  default:
+    break;
+  }
+
+  usuario->saldoBRL += valorComTaxa;
+
+  registrarTransacao(usuario, VENDA, valor, valor * taxa, moeda);
+  printf("Venda realizada!\n");
+  printf("Valor recebido: %.2lf BRL\n", valorComTaxa);
+  printf("Taxa cobrada: %.2lf BRL\n", valor * taxa);
+}
+
+// Atualiza as cotações das criptomoedas
+void atualizarCotacoes(Cotacoes *cotacoes) {
+  srand(time(NULL));
+  double varBit = ((rand() % 11) - 5) / 100.0; // -5% a +5%
+  double varEth = ((rand() % 11) - 5) / 100.0;
+  double varXrp = ((rand() % 11) - 5) / 100.0;
+
+  cotacoes->bitcoin += cotacoes->bitcoin * varBit;
+  cotacoes->ethereum += cotacoes->ethereum * varEth;
+  cotacoes->ripple += cotacoes->ripple * varXrp;
+
+  printf("\nCotações Atualizadas\n");
+  printf("Bitcoin: %.2lf BRL\n", cotacoes->bitcoin);
+  printf("Ethereum: %.2lf BRL\n", cotacoes->ethereum);
+  printf("Ripple: %.2lf BRL\n", cotacoes->ripple);
+}
