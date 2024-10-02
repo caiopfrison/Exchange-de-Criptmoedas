@@ -251,3 +251,18 @@ void sacarBRL(Usuario *usuario) {
   registrarTransacao(usuario, VENDA, valor, 0.0, NONE);
   printf("Realizado com sucesso!\n");
 }
+
+
+// Função para obter a taxa de compra
+double taxaCompra(int moeda) {
+  switch (moeda) {
+  case BITCOIN:
+    return 0.02;
+  case ETHEREUM:
+    return 0.01;
+  case RIPPLE:
+    return 0.01;
+  default:
+    return 0.0;
+  }
+}
