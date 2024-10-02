@@ -71,3 +71,18 @@ void obterDataAtual(char *buffer) {
   sprintf(buffer, "%02d/%02d/%04d", tm.tm_mday, tm.tm_mon + 1,
           tm.tm_year + 1900);
 }
+
+// Função para carregar usuários do arquivo binário
+int carregarUsuarios(Usuario usuarios[]) {
+  FILE *file = fopen("usuarios.bin", "rb");
+  if (file == NULL) {
+    return 0;
+  }
+  int i = 0;
+  while (i < MAX_USUARIOS &&
+         fread(&usuarios[i], sizeof(Usuario), 1, file) == 1) {
+    i++;
+  }
+  fclose(file);
+  return i;
+}
