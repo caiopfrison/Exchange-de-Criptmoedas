@@ -395,3 +395,76 @@ void venderCriptomoeda(Usuario *usuario, Cotacoes *cotacoes) {
     printf("Quantidade inválida.\n");
     return;
   }
+  // Verifica saldo da criptomoeda
+  switch (moeda) {
+  case BITCOIN:
+    if (usuario->saldoBitcoin < quantidade) {
+      printf("Saldo insuficiente de Bitcoin.\n");
+      return;
+    }
+    break;
+  case ETHEREUM:
+    if (usuario->saldoEthereum < quantidade) {
+      printf("Saldo insuficiente de Ethereum.\n");
+      return;
+    }
+    break;
+  case RIPPLE:
+    if (usuario->saldoRipple < quantidade) {
+      printf("Saldo insuficiente de Ripple.\n");
+      return;
+    }
+    break;
+  default:
+    break;
+  }
+
+  printf("Confirme sua senha: ");
+  scanf("%s", senha);
+  if (strcmp(usuario->senha, senha) != 0) {
+    printf("Senha incorreta.\n");
+    return;
+  }
+
+  double valor = quantidade * precoAtual;
+  double valorComTaxa = valor * (1 - taxa);
+
+  // Atualiza o saldo
+  switch (moeda) {
+  case BITCOIN:
+    usuario->saldoBitcoin -= quantidade;
+    break;
+  case ETHEREUM:
+    usuario->saldoEthereum -= quantidade;
+    break;
+  case RIPPLE:
+    usuario->saldoRipple -= quantidade;
+    break;
+  default:
+    break;
+  }
+
+  usuario->saldoBRL += valorComTaxa;
+
+  registrarTransacao(usuario, VENDA, valor, valor * taxa, moeda);
+  printf("Venda realizada!\n");
+  printf("Valor recebido: %.2lf BRL\n", valorComTaxa);
+  printf("Taxa cobrada: %.2lf BRL\n", valor * taxa);
+}
+
+// Atualiza as cotações das criptomoedas
+void atualizarCotacoes(Cotacoes *cotacoes) {
+  srand(time(NULL));
+  double varBit = ((rand() % 11) - 5) / 100.0; // -5% a +5%
+  double varEth = ((rand() % 11) - 5) / 100.0;
+  double varXrp = ((rand() % 11) - 5) / 100.0;
+
+  cotacoes->bitcoin += cotacoes->bitcoin * varBit;
+  cotacoes->ethereum += cotacoes->ethereum * varEth;
+  cotacoes->ripple += cotacoes->ripple * varXrp;
+
+  printf("\nCotações Atualizadas\n");
+  printf("Bitcoin: %.2lf BRL\n", cotacoes->bitcoin);
+  printf("Ethereum: %.2lf BRL\n", cotacoes->ethereum);
+  printf("Ripple: %.2lf BRL\n", cotacoes->ripple);
+}
