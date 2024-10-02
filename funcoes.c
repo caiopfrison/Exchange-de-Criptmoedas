@@ -32,3 +32,8 @@ int cadastrarUsuario(Usuario usuarios[], int *qtdUsuarios) {
         }
     }
     strcpy(novoUsuario.cpf, cpf);
+
+    // Entrada da Senha
+    printf("Senha: ");
+    scanf("%s", senha);
+    strcpy(novoUsuario.senha, senha);
