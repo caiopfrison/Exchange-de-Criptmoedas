@@ -210,3 +210,19 @@ void consultarExtrato(Usuario *usuario) {
   }
   fclose(file);
 }
+
+// Função para depositar em reais
+void depositarBRL(Usuario *usuario) {
+  double valor;
+  printf("\nDepositar Reais\n");
+  printf("Valor a depositar: ");
+  scanf("%lf", &valor);
+  if (valor <= 0) {
+    printf("Valor inválido.\n");
+    return;
+  }
+  usuario->saldoBRL += valor;
+  registrarTransacao(usuario, COMPRA, valor, 0.0,
+                     NONE);
+  printf("Depósito realizado com sucesso!\n");
+}
