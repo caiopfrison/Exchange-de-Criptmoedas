@@ -155,3 +155,28 @@ void consultarSaldo(Usuario *usuario) {
   printf("Ethereum: %.6lf\n", usuario->saldoEthereum);
   printf("Ripple: %.6lf\n", usuario->saldoRipple);
 }
+
+// Função para consultar extrato
+void consultarExtrato(Usuario *usuario) {
+  printf("\nExtrato\n");
+  printf("CPF: %s\n", usuario->cpf);
+  for (int i = 0; i < usuario->qtdTransacoes; i++) {
+    Transacao t = usuario->transacoes[i];
+    printf("Data: %s | ", t.data);
+    printf("Tipo: %s | ", t.tipo == COMPRA ? "Compra" : "Venda");
+    printf("Moeda: ");
+    switch (t.moeda) {
+    case BITCOIN:
+      printf("Bitcoin");
+      break;
+    case ETHEREUM:
+      printf("Ethereum");
+      break;
+    case RIPPLE:
+      printf("Ripple");
+      break;
+    default:
+      printf("Nenhuma");
+    }
+    printf(" | Valor: %.2lf | Taxa: %.2lf\n", t.valor, t.taxa);
+  }
