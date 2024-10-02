@@ -180,3 +180,33 @@ void consultarExtrato(Usuario *usuario) {
     }
     printf(" | Valor: %.2lf | Taxa: %.2lf\n", t.valor, t.taxa);
   }
+
+  // Salvar em arquivo texto
+  FILE *file = fopen("extrato.txt", "w");
+  if (file == NULL) {
+    printf("Erro ao salvar extrato.\n");
+    return;
+  }
+  fprintf(file, "Extrato\n");
+  fprintf(file, "CPF: %s\n", usuario->cpf);
+  for (int i = 0; i < usuario->qtdTransacoes; i++) {
+    Transacao t = usuario->transacoes[i];
+    fprintf(file, "Data: %s | Tipo: %s | Moeda: ", t.data,
+            t.tipo == COMPRA ? "Compra" : "Venda");
+    switch (t.moeda) {
+    case BITCOIN:
+      fprintf(file, "Bitcoin");
+      break;
+    case ETHEREUM:
+      fprintf(file, "Ethereum");
+      break;
+    case RIPPLE:
+      fprintf(file, "Ripple");
+      break;
+    default:
+      fprintf(file, "Nenhuma");
+    }
+    fprintf(file, " | Valor: %.2lf | Taxa: %.2lf\n", t.valor, t.taxa);
+  }
+  fclose(file);
+}
