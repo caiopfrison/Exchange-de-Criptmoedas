@@ -48,4 +48,11 @@ int cadastrarUsuario(Usuario usuarios[], int *qtdUsuarios) {
     // Adicionar o novo usuário ao array
     usuarios[*qtdUsuarios] = novoUsuario;
     (*qtdUsuarios)++;
-    
+
+    // Salvar os usuários atualizados no arquivo
+    salvarUsuarios(usuarios, *qtdUsuarios);
+
+    printf("Usuário cadastrado com sucesso!\n");
+    printf("CPF: %s\n", novoUsuario.cpf);
+    return 0;
+}
