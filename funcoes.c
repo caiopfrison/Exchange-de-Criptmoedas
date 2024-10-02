@@ -123,3 +123,26 @@ void registrarTransacao(Usuario *usuario, TipoOperacao tipo, double valor,
   t.moeda = moeda;
   usuario->transacoes[usuario->qtdTransacoes++] = t;
 }
+
+// Função de login
+int efetuarLogin(Usuario usuarios[], int qtd) {
+  char cpf[CPF_SIZE];
+  char senha[SENHA_SIZE];
+  printf("Login\n");
+  printf("CPF: ");
+  scanf("%s", cpf);
+  printf("Senha: ");
+  scanf("%s", senha);
+
+  int idx = encontrarUsuario(usuarios, qtd, cpf);
+  if (idx == -1) {
+    printf("Não encontrado.\n");
+    return -1;
+  }
+  if (strcmp(usuarios[idx].senha, senha) != 0) {
+    printf("Senha incorreta.\n");
+    return -1;
+  }
+  printf("Login feito com sucesso!\n");
+  return idx;
+}
