@@ -428,4 +428,26 @@ void venderCriptomoeda(Usuario *usuario, Cotacoes *cotacoes) {
 
   double valor = quantidade * precoAtual;
   double valorComTaxa = valor * (1 - taxa);
-  
+
+  // Atualiza o saldo
+  switch (moeda) {
+  case BITCOIN:
+    usuario->saldoBitcoin -= quantidade;
+    break;
+  case ETHEREUM:
+    usuario->saldoEthereum -= quantidade;
+    break;
+  case RIPPLE:
+    usuario->saldoRipple -= quantidade;
+    break;
+  default:
+    break;
+  }
+
+  usuario->saldoBRL += valorComTaxa;
+
+  registrarTransacao(usuario, VENDA, valor, valor * taxa, moeda);
+  printf("Venda realizada!\n");
+  printf("Valor recebido: %.2lf BRL\n", valorComTaxa);
+  printf("Taxa cobrada: %.2lf BRL\n", valor * taxa);
+}
