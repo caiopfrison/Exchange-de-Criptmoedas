@@ -355,3 +355,43 @@ void comprarCriptomoeda(Usuario *usuario, Cotacoes *cotacoes) {
                           : (moeda == ETHEREUM ? "Ethereum" : "Ripple"));
   printf("Taxa cobrada: %.2lf BRL\n", valor * taxa);
 }
+
+// Função para vender criptomoeda
+void venderCriptomoeda(Usuario *usuario, Cotacoes *cotacoes) {
+  int escolha;
+  double quantidade;
+  char senha[SENHA_SIZE];
+  printf("\nVender Criptomoeda\n");
+  printf("Selecione a moeda:\n1. Bitcoin\n2. Ethereum\n3. Ripple\nEscolha: ");
+  scanf("%d", &escolha);
+  Criptomoeda moeda;
+  double taxa;
+  double precoAtual;
+
+  switch (escolha) {
+  case 1:
+    moeda = BITCOIN;
+    precoAtual = cotacoes->bitcoin;
+    taxa = taxaVenda(moeda);
+    break;
+  case 2:
+    moeda = ETHEREUM;
+    precoAtual = cotacoes->ethereum;
+    taxa = taxaVenda(moeda);
+    break;
+  case 3:
+    moeda = RIPPLE;
+    precoAtual = cotacoes->ripple;
+    taxa = taxaVenda(moeda);
+    break;
+  default:
+    printf("Opção inválida.\n");
+    return;
+  }
+
+  printf("Quantidade a vender: ");
+  scanf("%lf", &quantidade);
+  if (quantidade <= 0) {
+    printf("Quantidade inválida.\n");
+    return;
+  }
