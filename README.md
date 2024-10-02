@@ -1,3 +1,7 @@
+Caio Pietoso Frison R.A: 22.223.082-3
+
+Paulo Ricardo V. Bezerra R.A:22.223.015-5
+
 # Exchange-de-Criptmoedas
 Uma exchange de criptomoedas é um ambiente online onde os usuários podem realizar a compra, venda ou troca de criptomoedas, seja por outras moedas digitais ou por reais.
 Seu funcionamento é comparável ao de uma bolsa de valores, porém voltado exclusivamente para ativos digitais.
@@ -27,6 +31,4 @@ Menu Principal:
 
 Para solicitar o serviço que deseja basta selecionar o número a esqueda das opções e ele realizará a operação.
 
-Caio Pietoso Frison R.A: 22.223.082-3
 
-Paulo Ricardo V. Bezerra R.A:22.223.015-5
