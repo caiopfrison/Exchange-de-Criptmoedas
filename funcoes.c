@@ -86,3 +86,14 @@ int carregarUsuarios(Usuario usuarios[]) {
   fclose(file);
   return i;
 }
+
+// Função para salvar os usuários no arquivo binário
+void salvarUsuarios(Usuario usuarios[], int qtd) {
+  FILE *file = fopen("usuarios.bin", "wb");
+  if (file == NULL) {
+    printf("Erro ao salvar dados.\n");
+    return;
+  }
+  fwrite(usuarios, sizeof(Usuario), qtd, file);
+  fclose(file);
+}
