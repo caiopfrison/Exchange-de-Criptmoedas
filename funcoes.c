@@ -107,3 +107,19 @@ int encontrarUsuario(Usuario usuarios[], int qtd, char *cpf) {
   }
   return -1;
 }
+
+// Registra uma transação
+void registrarTransacao(Usuario *usuario, TipoOperacao tipo, double valor,
+                        double taxa, Criptomoeda moeda) {
+  if (usuario->qtdTransacoes >= MAX_TRANSACOES) {
+    printf("Limite de transações alcançado.\n");
+    return;
+  }
+  Transacao t;
+  obterDataAtual(t.data);
+  t.tipo = tipo;
+  t.valor = valor;
+  t.taxa = taxa;
+  t.moeda = moeda;
+  usuario->transacoes[usuario->qtdTransacoes++] = t;
+}
