@@ -37,3 +37,10 @@ int cadastrarUsuario(Usuario usuarios[], int *qtdUsuarios) {
     printf("Senha: ");
     scanf("%s", senha);
     strcpy(novoUsuario.senha, senha);
+
+    // Inicializar saldos e transações
+    novoUsuario.saldoBRL = 0.0;
+    novoUsuario.saldoBitcoin = 0.0;
+    novoUsuario.saldoEthereum = 0.0;
+    novoUsuario.saldoRipple = 0.0;
+    novoUsuario.qtdTransacoes = 0;
